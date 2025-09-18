@@ -14,22 +14,23 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
             min-height: 100vh;
             padding: 20px;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.12);
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
         
         .header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -54,36 +55,49 @@
         }
         
         .form-section {
-            padding: 40px;
-            background: #f8fafc;
+            padding: 45px;
+            background: linear-gradient(135deg, #fafafb 0%, #f7fafc 100%);
             border-right: 2px solid #e2e8f0;
         }
         
         .preview-section {
-            padding: 40px;
-            background: white;
+            padding: 45px;
+            background: linear-gradient(135deg, #ffffff 0%, #fafbff 100%);
             position: relative;
         }
         
         .section-title {
-            font-size: 1.5em;
+            font-size: 1.6em;
             color: #2d3748;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 700;
         }
         
         .section-title::before {
             content: '';
             width: 4px;
             height: 30px;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             border-radius: 2px;
         }
         
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 28px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .form-group label {
@@ -112,26 +126,27 @@
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #4facfe;
-            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
             transform: translateY(-1px);
         }
         
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
             margin-bottom: 25px;
         }
         
         .service-item {
             background: white;
             border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 15px;
+            padding: 25px;
             transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
         .service-item::before {
@@ -141,15 +156,16 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            background: linear-gradient(90deg, #667eea, #764ba2);
             transform: scaleX(0);
             transition: transform 0.3s ease;
+            border-radius: 15px 15px 0 0;
         }
         
         .service-item:hover {
-            border-color: #4facfe;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.15);
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
         }
         
         .service-item:hover::before {
@@ -159,54 +175,77 @@
         .service-header {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
         }
         
         .service-checkbox {
             margin-right: 15px;
-            width: 20px;
-            height: 20px;
-            accent-color: #4facfe;
+            width: 22px;
+            height: 22px;
+            accent-color: #667eea;
         }
         
         .service-name {
-            font-weight: 600;
+            font-weight: 700;
             color: #2d3748;
-            font-size: 1.1em;
+            font-size: 1.15em;
+            line-height: 1.3;
         }
         
         .service-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 18px;
         }
         
+        .service-details select,
         .service-details input {
-            padding: 8px 10px;
-            font-size: 0.9em;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 0.95em;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            min-width: 0;
+            background: white;
+        }
+        
+        .service-details select:focus,
+        .service-details input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        }
+        
+        .service-package {
+            width: 100%;
+            font-weight: 500;
+        }
+        
+        .service-custom-price {
+            margin-top: 8px;
         }
         
         .btn {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1.1em;
+            padding: 16px 32px;
+            border-radius: 25px;
+            font-size: 1.05em;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
         }
         
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
         }
         
         .btn:active {
@@ -227,7 +266,7 @@
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 3px solid #4facfe;
+            border-bottom: 3px solid #667eea;
         }
         
         .company-name {
@@ -239,7 +278,7 @@
         
         .quote-title {
             font-size: 1.4em;
-            color: #4facfe;
+            color: #667eea;
             margin: 15px 0;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -268,7 +307,7 @@
         }
         
         .services-table th {
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             padding: 15px 10px;
             text-align: left;
@@ -304,7 +343,7 @@
             font-size: 1.4em;
             font-weight: 700;
             color: #2d3748;
-            border-top: 2px solid #4facfe;
+            border-top: 2px solid #667eea;
             padding-top: 15px;
             margin-top: 15px;
         }
@@ -320,14 +359,15 @@
         
         .action-buttons {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 18px;
+            margin-top: 25px;
             justify-content: center;
+            flex-wrap: wrap;
         }
         
         .currency-symbol {
             font-weight: 600;
-            color: #4facfe;
+            color: #667eea;
         }
         
         @media (max-width: 768px) {
@@ -367,7 +407,7 @@
                 
                 <div class="form-group">
                     <label>Your Company Name</label>
-                    <input type="text" id="companyName" placeholder="Enter your company name" value="Your Digital Agency">
+                    <input type="text" id="companyName" placeholder="Enter your company name" value="Empire Digisol">
                 </div>
                 
                 <div class="form-group">
@@ -393,12 +433,13 @@
                         <option value="£">GBP (£)</option>
                         <option value="₹">INR (₹)</option>
                         <option value="¥">JPY (¥)</option>
+                        <option value="₨">PKR (₨)</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label>Tax Rate (%)</label>
-                    <input type="number" id="taxRate" placeholder="18" value="18">
+                    <label>Tax Rate (%) - Optional</label>
+                    <input type="number" id="taxRate" placeholder="0" value="0" min="0" max="100" step="0.01">
                 </div>
                 
                 <div class="form-group">
@@ -415,9 +456,14 @@
                             <span class="service-name">Web Development</span>
                         </div>
                         <div class="service-details">
-                            <input type="number" placeholder="Quantity" class="service-qty" data-service="webdev">
-                            <input type="number" placeholder="Price" class="service-price" data-service="webdev">
-                            <input type="text" placeholder="Unit" class="service-unit" data-service="webdev" value="Project">
+                            <select class="service-package" data-service="webdev">
+                                <option value="">Select Package</option>
+                                <option value="basic|3000">Basic Website</option>
+                                <option value="standard|8000">Standard Website</option>
+                                <option value="premium|15000">E-commerce Premium</option>
+                                <option value="custom|0">Custom Quote</option>
+                            </select>
+                            <input type="number" placeholder="Custom Price" class="service-custom-price" data-service="webdev" style="display: none;">
                         </div>
                     </div>
                     
@@ -427,9 +473,14 @@
                             <span class="service-name">SEO Services</span>
                         </div>
                         <div class="service-details">
-                            <input type="number" placeholder="Quantity" class="service-qty" data-service="seo">
-                            <input type="number" placeholder="Price" class="service-price" data-service="seo">
-                            <input type="text" placeholder="Unit" class="service-unit" data-service="seo" value="Month">
+                            <select class="service-package" data-service="seo">
+                                <option value="">Select Package</option>
+                                <option value="starter|500">SEO Starter (Monthly)</option>
+                                <option value="professional|1200">SEO Professional (Monthly)</option>
+                                <option value="enterprise|2500">SEO Enterprise (Monthly)</option>
+                                <option value="custom|0">Custom Quote</option>
+                            </select>
+                            <input type="number" placeholder="Custom Monthly Rate" class="service-custom-price" data-service="seo" style="display: none;">
                         </div>
                     </div>
                     
@@ -439,9 +490,14 @@
                             <span class="service-name">Social Media Marketing</span>
                         </div>
                         <div class="service-details">
-                            <input type="number" placeholder="Quantity" class="service-qty" data-service="social">
-                            <input type="number" placeholder="Price" class="service-price" data-service="social">
-                            <input type="text" placeholder="Unit" class="service-unit" data-service="social" value="Month">
+                            <select class="service-package" data-service="social">
+                                <option value="">Select Package</option>
+                                <option value="basic|800">Basic Management (Monthly)</option>
+                                <option value="fullservice|1500">Full Service (Monthly)</option>
+                                <option value="premium|3000">Premium Package (Monthly)</option>
+                                <option value="custom|0">Custom Quote</option>
+                            </select>
+                            <input type="number" placeholder="Custom Monthly Rate" class="service-custom-price" data-service="social" style="display: none;">
                         </div>
                     </div>
                     
@@ -451,9 +507,14 @@
                             <span class="service-name">PPC Advertising</span>
                         </div>
                         <div class="service-details">
-                            <input type="number" placeholder="Quantity" class="service-qty" data-service="ppc">
-                            <input type="number" placeholder="Price" class="service-price" data-service="ppc">
-                            <input type="text" placeholder="Unit" class="service-unit" data-service="ppc" value="Month">
+                            <select class="service-package" data-service="ppc">
+                                <option value="">Select Package</option>
+                                <option value="starter|1000">PPC Starter (Monthly)</option>
+                                <option value="growth|2500">Growth Package (Monthly)</option>
+                                <option value="enterprise|5000">Enterprise (Monthly)</option>
+                                <option value="custom|0">Custom Quote</option>
+                            </select>
+                            <input type="number" placeholder="Custom Monthly Rate" class="service-custom-price" data-service="ppc" style="display: none;">
                         </div>
                     </div>
                     
@@ -463,9 +524,14 @@
                             <span class="service-name">Content Marketing</span>
                         </div>
                         <div class="service-details">
-                            <input type="number" placeholder="Quantity" class="service-qty" data-service="content">
-                            <input type="number" placeholder="Price" class="service-price" data-service="content">
-                            <input type="text" placeholder="Unit" class="service-unit" data-service="content" value="Month">
+                            <select class="service-package" data-service="content">
+                                <option value="">Select Package</option>
+                                <option value="basic|600">Basic Content (Monthly)</option>
+                                <option value="standard|1200">Standard Package (Monthly)</option>
+                                <option value="premium|2000">Premium Content (Monthly)</option>
+                                <option value="custom|0">Custom Quote</option>
+                            </select>
+                            <input type="number" placeholder="Custom Monthly Rate" class="service-custom-price" data-service="content" style="display: none;">
                         </div>
                     </div>
                     
@@ -475,9 +541,14 @@
                             <span class="service-name">Email Marketing</span>
                         </div>
                         <div class="service-details">
-                            <input type="number" placeholder="Quantity" class="service-qty" data-service="email">
-                            <input type="number" placeholder="Price" class="service-price" data-service="email">
-                            <input type="text" placeholder="Unit" class="service-unit" data-service="email" value="Month">
+                            <select class="service-package" data-service="email">
+                                <option value="">Select Package</option>
+                                <option value="basic|400">Basic Campaigns (Monthly)</option>
+                                <option value="advanced|800">Advanced Automation (Monthly)</option>
+                                <option value="enterprise|1500">Enterprise (Monthly)</option>
+                                <option value="custom|0">Custom Quote</option>
+                            </select>
+                            <input type="number" placeholder="Custom Monthly Rate" class="service-custom-price" data-service="email" style="display: none;">
                         </div>
                     </div>
                     
@@ -487,9 +558,14 @@
                             <span class="service-name">Mobile App Development</span>
                         </div>
                         <div class="service-details">
-                            <input type="number" placeholder="Quantity" class="service-qty" data-service="mobile">
-                            <input type="number" placeholder="Price" class="service-price" data-service="mobile">
-                            <input type="text" placeholder="Unit" class="service-unit" data-service="mobile" value="Project">
+                            <select class="service-package" data-service="mobile">
+                                <option value="">Select Package</option>
+                                <option value="ios|12000">iOS App</option>
+                                <option value="android|12000">Android App</option>
+                                <option value="crossplatform|18000">Cross-Platform App</option>
+                                <option value="custom|0">Custom Quote</option>
+                            </select>
+                            <input type="number" placeholder="Custom Project Price" class="service-custom-price" data-service="mobile" style="display: none;">
                         </div>
                     </div>
                     
@@ -499,9 +575,14 @@
                             <span class="service-name">ERP Solutions</span>
                         </div>
                         <div class="service-details">
-                            <input type="number" placeholder="Quantity" class="service-qty" data-service="erp">
-                            <input type="number" placeholder="Price" class="service-price" data-service="erp">
-                            <input type="text" placeholder="Unit" class="service-unit" data-service="erp" value="License">
+                            <select class="service-package" data-service="erp">
+                                <option value="">Select Package</option>
+                                <option value="basic|5000">Basic ERP System</option>
+                                <option value="standard|12000">Standard ERP System</option>
+                                <option value="enterprise|25000">Enterprise ERP System</option>
+                                <option value="custom|0">Custom Quote</option>
+                            </select>
+                            <input type="number" placeholder="Custom Project Price" class="service-custom-price" data-service="erp" style="display: none;">
                         </div>
                     </div>
                     
@@ -511,9 +592,14 @@
                             <span class="service-name">E-commerce Development</span>
                         </div>
                         <div class="service-details">
-                            <input type="number" placeholder="Quantity" class="service-qty" data-service="ecommerce">
-                            <input type="number" placeholder="Price" class="service-price" data-service="ecommerce">
-                            <input type="text" placeholder="Unit" class="service-unit" data-service="ecommerce" value="Project">
+                            <select class="service-package" data-service="ecommerce">
+                                <option value="">Select Package</option>
+                                <option value="basic|4000">Basic Online Store</option>
+                                <option value="advanced|8000">Advanced Store</option>
+                                <option value="enterprise|15000">Enterprise Store</option>
+                                <option value="custom|0">Custom Quote</option>
+                            </select>
+                            <input type="number" placeholder="Custom Project Price" class="service-custom-price" data-service="ecommerce" style="display: none;">
                         </div>
                     </div>
                     
@@ -523,9 +609,14 @@
                             <span class="service-name">Analytics & Reporting</span>
                         </div>
                         <div class="service-details">
-                            <input type="number" placeholder="Quantity" class="service-qty" data-service="analytics">
-                            <input type="number" placeholder="Price" class="service-price" data-service="analytics">
-                            <input type="text" placeholder="Unit" class="service-unit" data-service="analytics" value="Month">
+                            <select class="service-package" data-service="analytics">
+                                <option value="">Select Package</option>
+                                <option value="basic|300">Basic Analytics (Monthly)</option>
+                                <option value="advanced|600">Advanced Reports (Monthly)</option>
+                                <option value="enterprise|1200">Enterprise Analytics (Monthly)</option>
+                                <option value="custom|0">Custom Quote</option>
+                            </select>
+                            <input type="number" placeholder="Custom Monthly Rate" class="service-custom-price" data-service="analytics" style="display: none;">
                         </div>
                     </div>
                 </div>
@@ -576,7 +667,7 @@
         
         // Real-time preview update
         function updatePreview() {
-            const companyName = document.getElementById('companyName').value || 'Your Digital Agency';
+            const companyName = document.getElementById('companyName').value || 'Empire Digisol';
             const clientName = document.getElementById('clientName').value || 'Client Name';
             const clientEmail = document.getElementById('clientEmail').value || 'client@email.com';
             const quoteNumber = document.getElementById('quoteNumber').value || 'QT-001';
@@ -588,25 +679,35 @@
             let selectedServices = [];
             let subtotal = 0;
             
-            // Collect selected services
+            // Collect selected services using new package system
             document.querySelectorAll('.service-checkbox:checked').forEach(checkbox => {
                 const service = checkbox.dataset.service;
-                const qty = parseFloat(document.querySelector(`.service-qty[data-service="${service}"]`).value) || 0;
-                const price = parseFloat(document.querySelector(`.service-price[data-service="${service}"]`).value) || 0;
-                const unit = document.querySelector(`.service-unit[data-service="${service}"]`).value || 'Item';
                 const serviceName = checkbox.parentElement.querySelector('.service-name').textContent;
+                const packageSelect = document.querySelector(`.service-package[data-service="${service}"]`);
+                const customPriceInput = document.querySelector(`.service-custom-price[data-service="${service}"]`);
                 
-                if (qty > 0 && price > 0) {
-                    const total = qty * price;
-                    subtotal += total;
-                    selectedServices.push({
-                        name: serviceName,
-                        description: serviceDescriptions[service],
-                        quantity: qty,
-                        unit: unit,
-                        price: price,
-                        total: total
-                    });
+                if (packageSelect && packageSelect.value) {
+                    const [packageType, packagePrice] = packageSelect.value.split('|');
+                    let price = parseFloat(packagePrice);
+                    let packageName = packageSelect.options[packageSelect.selectedIndex].text;
+                    
+                    // Handle custom pricing
+                    if (packageType === 'custom' && customPriceInput && customPriceInput.value) {
+                        price = parseFloat(customPriceInput.value) || 0;
+                        packageName = `${serviceName} - Custom Quote`;
+                    }
+                    
+                    if (price > 0) {
+                        subtotal += price;
+                        selectedServices.push({
+                            name: packageName,
+                            description: serviceDescriptions[service] || `Professional ${serviceName.toLowerCase()} service`,
+                            quantity: 1,
+                            unit: packageType === 'custom' ? 'Custom' : 'Package',
+                            price: price,
+                            total: price
+                        });
+                    }
                 }
             });
             
@@ -705,65 +806,229 @@
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF('p', 'mm', 'a4');
             
+            // Get form data
             const companyName = document.getElementById('companyName').value || 'Your Digital Agency';
             const clientName = document.getElementById('clientName').value || 'Client Name';
+            const clientEmail = document.getElementById('clientEmail').value || 'client@email.com';
             const quoteNumber = document.getElementById('quoteNumber').value || 'QT-001';
+            const validUntil = document.getElementById('validUntil').value;
+            const currency = document.getElementById('currency').value;
+            const notes = document.getElementById('notes').value;
             
-            // Add content to PDF
-            pdf.setFontSize(20);
-            pdf.text(companyName, 105, 30, { align: 'center' });
+            // Color scheme
+            const primaryColor = [102, 126, 234]; // Purple
+            const accentColor = [118, 75, 162]; // Darker purple
+            const lightGray = [248, 250, 252];
+            const darkGray = [45, 55, 72];
             
-            pdf.setFontSize(16);
-            pdf.text('Professional Service Quotation', 105, 45, { align: 'center' });
+            // Professional Header with branding area
+            pdf.setFillColor(...primaryColor);
+            pdf.rect(0, 0, 210, 45, 'F');
             
+            // Empire Digisol Logo Area
+            pdf.setFillColor(255, 255, 255);
+            pdf.roundedRect(15, 10, 24, 24, 3, 3, 'F');
+            
+            // Logo placeholder with Empire Digisol styling
+            pdf.setFillColor(102, 126, 234);
+            pdf.roundedRect(17, 12, 20, 20, 2, 2, 'F');
+            
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(8);
+            pdf.text('ED', 27, 24, { align: 'center' });
+            
+            // Company name and header
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(24);
+            pdf.text('Empire Digisol', 45, 20);
+            
+            pdf.setFont('helvetica', 'normal');
             pdf.setFontSize(12);
-            pdf.text(`Quote #${quoteNumber}`, 105, 55, { align: 'center' });
+            pdf.text('Digital Marketing & Development Solutions', 45, 28);
             
-            // Add more content based on form data
-            let yPos = 80;
-            pdf.text(`Client: ${clientName}`, 20, yPos);
-            yPos += 10;
-            pdf.text(`Date: ${new Date().toLocaleDateString()}`, 20, yPos);
-            yPos += 10;
+            // Contact info in header
+            pdf.setFontSize(9);
+            pdf.text('www.empiredigisol.com  |  info@empiredigisol.com  |  +92 (300) 123-4567', 45, 35);
             
-            // Add selected services to PDF
-            const selectedServices = getSelectedServices();
-            if (selectedServices.length > 0) {
-                yPos += 10;
-                pdf.setFontSize(14);
-                pdf.text('Services:', 20, yPos);
-                yPos += 10;
-                
-                pdf.setFontSize(10);
-                selectedServices.forEach(service => {
-                    if (yPos > 250) {
-                        pdf.addPage();
-                        yPos = 20;
-                    }
-                    pdf.text(`${service.name} - Qty: ${service.quantity} ${service.unit} @ ${document.getElementById('currency').value}${service.price} = ${document.getElementById('currency').value}${service.total}`, 20, yPos);
-                    yPos += 7;
-                });
-                
-                // Add totals
-                const subtotal = selectedServices.reduce((sum, service) => sum + service.total, 0);
-                const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
-                const taxAmount = (subtotal * taxRate) / 100;
-                const finalTotal = subtotal + taxAmount;
-                
-                yPos += 10;
-                pdf.setFontSize(12);
-                pdf.text(`Subtotal: ${document.getElementById('currency').value}${subtotal.toLocaleString()}`, 20, yPos);
-                yPos += 7;
-                if (taxRate > 0) {
-                    pdf.text(`Tax (${taxRate}%): ${document.getElementById('currency').value}${taxAmount.toLocaleString()}`, 20, yPos);
-                    yPos += 7;
-                }
-                pdf.setFontSize(14);
-                pdf.text(`Total: ${document.getElementById('currency').value}${finalTotal.toLocaleString()}`, 20, yPos);
+            // Quote title section
+            pdf.setTextColor(...darkGray);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(28);
+            pdf.text('QUOTATION', 150, 65);
+            
+            pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(11);
+            pdf.text(`Quote #: ${quoteNumber}`, 150, 75);
+            pdf.text(`Date: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`, 150, 82);
+            
+            if (validUntil) {
+                const validDate = new Date(validUntil).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                pdf.text(`Valid Until: ${validDate}`, 150, 89);
             }
             
-            // Save the PDF
-            pdf.save(`Quote_${quoteNumber}_${clientName.replace(/\s+/g, '_')}.pdf`);
+            // Client information section
+            pdf.setFillColor(...lightGray);
+            pdf.rect(20, 100, 170, 25, 'F');
+            
+            pdf.setTextColor(...darkGray);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(14);
+            pdf.text('BILL TO:', 25, 110);
+            
+            pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(11);
+            pdf.text(clientName, 25, 118);
+            pdf.text(clientEmail, 25, 125);
+            
+            // Services table header
+            let yPos = 135;
+            pdf.setFillColor(...primaryColor);
+            pdf.rect(20, yPos, 170, 15, 'F');
+            
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(11);
+            pdf.text('SERVICE DESCRIPTION', 25, yPos + 10);
+            pdf.text('PACKAGE', 120, yPos + 10);
+            pdf.text('AMOUNT', 165, yPos + 10, { align: 'right' });
+            
+            yPos += 15;
+            
+            // Add selected services with professional formatting
+            const selectedServices = getSelectedServices();
+            let subtotal = 0;
+            
+            pdf.setTextColor(...darkGray);
+            pdf.setFont('helvetica', 'normal');
+            
+            selectedServices.forEach((service, index) => {
+                if (yPos > 250) {
+                    pdf.addPage();
+                    yPos = 20;
+                }
+                
+                // Alternating row colors
+                if (index % 2 === 0) {
+                    pdf.setFillColor(250, 250, 250);
+                    pdf.rect(20, yPos, 170, 25, 'F');
+                }
+                
+                pdf.setFontSize(12);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text(service.name, 25, yPos + 8);
+                
+                pdf.setFont('helvetica', 'normal');
+                pdf.setFontSize(10);
+                // Word wrap description
+                const description = service.description || '';
+                const wrappedDesc = pdf.splitTextToSize(description, 85);
+                pdf.text(wrappedDesc[0] || '', 25, yPos + 14);
+                if (wrappedDesc[1]) {
+                    pdf.text(wrappedDesc[1], 25, yPos + 18);
+                }
+                
+                pdf.setFontSize(11);
+                pdf.setFont('helvetica', 'normal');
+                pdf.text(`${service.unit}`, 120, yPos + 8);
+                
+                pdf.setFont('helvetica', 'bold');
+                pdf.setFontSize(12);
+                pdf.text(`${currency}${service.total.toFixed(2)}`, 185, yPos + 8, { align: 'right' });
+                
+                subtotal += service.total;
+                yPos += 27;
+            });
+            
+            // Totals section
+            yPos += 15;
+            const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+            const taxAmount = (subtotal * taxRate) / 100;
+            const finalTotal = subtotal + taxAmount;
+            
+            // Draw line above totals
+            pdf.setDrawColor(200, 200, 200);
+            pdf.setLineWidth(0.5);
+            pdf.line(130, yPos - 5, 190, yPos - 5);
+            
+            // Subtotal
+            pdf.setTextColor(...darkGray);
+            pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(12);
+            pdf.text('Subtotal:', 130, yPos);
+            pdf.text(`${currency}${subtotal.toFixed(2)}`, 185, yPos, { align: 'right' });
+            yPos += 10;
+            
+            // Tax
+            if (taxRate > 0) {
+                pdf.text(`Tax (${taxRate}%):`, 130, yPos);
+                pdf.text(`${currency}${taxAmount.toFixed(2)}`, 185, yPos, { align: 'right' });
+                yPos += 10;
+            }
+            
+            // Total with colored background
+            pdf.setFillColor(...primaryColor);
+            pdf.roundedRect(125, yPos - 3, 65, 16, 2, 2, 'F');
+            
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(16);
+            pdf.text('TOTAL:', 130, yPos + 8);
+            pdf.text(`${currency}${finalTotal.toFixed(2)}`, 185, yPos + 8, { align: 'right' });
+            
+            // Notes section
+            if (notes) {
+                yPos += 25;
+                pdf.setTextColor(...darkGray);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setFontSize(12);
+                pdf.text('Additional Notes:', 20, yPos);
+                
+                yPos += 8;
+                pdf.setFont('helvetica', 'normal');
+                pdf.setFontSize(10);
+                const wrappedNotes = pdf.splitTextToSize(notes, 170);
+                pdf.text(wrappedNotes, 20, yPos);
+                yPos += (wrappedNotes.length * 5) + 10;
+            }
+            
+            // Professional footer
+            const footerY = 270;
+            pdf.setFillColor(...lightGray);
+            pdf.rect(0, footerY - 5, 210, 40, 'F');
+            
+            pdf.setTextColor(...darkGray);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(11);
+            pdf.text('Terms & Conditions:', 20, footerY + 5);
+            
+            pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(9);
+            const terms = [
+                '• This quotation is valid for 30 days from the date of issue',
+                '• 50% advance payment is required to start the project',
+                '• Balance payment is due upon project completion and approval',
+                '• Additional revisions beyond agreed scope will be charged separately',
+                '• All prices are exclusive of taxes unless otherwise specified'
+            ];
+            
+            terms.forEach((term, index) => {
+                pdf.text(term, 20, footerY + 12 + (index * 4));
+            });
+            
+            // Empire Digisol footer branding
+            pdf.setFillColor(...primaryColor);
+            pdf.rect(0, footerY + 32, 210, 8, 'F');
+            
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(10);
+            pdf.text('EMPIRE DIGISOL - Empowering Digital Success', 105, footerY + 37, { align: 'center' });
+            
+            // Save the PDF with professional filename
+            const fileName = `Quotation_${quoteNumber}_${clientName.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+            pdf.save(fileName);
         }
         
         // Get selected services helper function
@@ -771,21 +1036,31 @@
             let selectedServices = [];
             document.querySelectorAll('.service-checkbox:checked').forEach(checkbox => {
                 const service = checkbox.dataset.service;
-                const qty = parseFloat(document.querySelector(`.service-qty[data-service="${service}"]`).value) || 0;
-                const price = parseFloat(document.querySelector(`.service-price[data-service="${service}"]`).value) || 0;
-                const unit = document.querySelector(`.service-unit[data-service="${service}"]`).value || 'Item';
                 const serviceName = checkbox.parentElement.querySelector('.service-name').textContent;
+                const packageSelect = document.querySelector(`.service-package[data-service="${service}"]`);
+                const customPriceInput = document.querySelector(`.service-custom-price[data-service="${service}"]`);
                 
-                if (qty > 0 && price > 0) {
-                    const total = qty * price;
-                    selectedServices.push({
-                        name: serviceName,
-                        description: serviceDescriptions[service],
-                        quantity: qty,
-                        unit: unit,
-                        price: price,
-                        total: total
-                    });
+                if (packageSelect.value) {
+                    const [packageType, packagePrice] = packageSelect.value.split('|');
+                    let price = parseFloat(packagePrice);
+                    let packageName = packageSelect.options[packageSelect.selectedIndex].text;
+                    
+                    // Handle custom pricing
+                    if (packageType === 'custom' && customPriceInput.value) {
+                        price = parseFloat(customPriceInput.value) || 0;
+                        packageName = `${serviceName} - Custom Quote`;
+                    }
+                    
+                    if (price > 0) {
+                        selectedServices.push({
+                            name: packageName,
+                            description: serviceDescriptions[service] || `Professional ${serviceName.toLowerCase()} service`,
+                            quantity: 1,
+                            unit: packageType === 'custom' ? 'Custom' : 'Package',
+                            price: price,
+                            total: price
+                        });
+                    }
                 }
             });
             return selectedServices;
@@ -875,7 +1150,7 @@
                     document.getElementById('clientName').value = decodedData.clientName || '';
                     document.getElementById('clientEmail').value = decodedData.clientEmail || '';
                     document.getElementById('quoteNumber').value = decodedData.quoteNumber || '';
-                    document.getElementById('currency').value = decodedData.currency || ';
+                    document.getElementById('currency').value = decodedData.currency || '$';
                     document.getElementById('taxRate').value = decodedData.taxRate || '18';
                     document.getElementById('validUntil').value = decodedData.validUntil || '';
                     document.getElementById('notes').value = decodedData.notes || '';
@@ -914,6 +1189,27 @@
                 input.addEventListener('change', updatePreview);
             });
             
+            // Add event listeners for package selection changes
+            const packageSelects = document.querySelectorAll('.service-package');
+            packageSelects.forEach(select => {
+                select.addEventListener('change', function() {
+                    const service = this.dataset.service;
+                    const customPriceInput = document.querySelector(`.service-custom-price[data-service="${service}"]`);
+                    const [packageType] = this.value.split('|');
+                    
+                    if (packageType === 'custom') {
+                        customPriceInput.style.display = 'block';
+                        customPriceInput.setAttribute('required', 'required');
+                    } else {
+                        customPriceInput.style.display = 'none';
+                        customPriceInput.removeAttribute('required');
+                        customPriceInput.value = '';
+                    }
+                    
+                    updatePreview();
+                });
+            });
+            
             // Initial preview update
             updatePreview();
         });
@@ -934,10 +1230,12 @@
             // Collect service data
             document.querySelectorAll('.service-checkbox').forEach(checkbox => {
                 const service = checkbox.dataset.service;
+                const packageSelect = document.querySelector(`.service-package[data-service="${service}"]`);
+                const customPriceInput = document.querySelector(`.service-custom-price[data-service="${service}"]`);
+                
                 formData[`${service}_checked`] = checkbox.checked;
-                formData[`${service}_qty`] = document.querySelector(`.service-qty[data-service="${service}"]`).value;
-                formData[`${service}_price`] = document.querySelector(`.service-price[data-service="${service}"]`).value;
-                formData[`${service}_unit`] = document.querySelector(`.service-unit[data-service="${service}"]`).value;
+                formData[`${service}_package`] = packageSelect ? packageSelect.value : '';
+                formData[`${service}_custom_price`] = customPriceInput ? customPriceInput.value : '';
             });
             
             try {
@@ -973,13 +1271,21 @@
                             checkbox.checked = true;
                         }
                         
-                        const qtyInput = document.querySelector(`.service-qty[data-service="${service}"]`);
-                        const priceInput = document.querySelector(`.service-price[data-service="${service}"]`);
-                        const unitInput = document.querySelector(`.service-unit[data-service="${service}"]`);
+                        const packageSelect = document.querySelector(`.service-package[data-service="${service}"]`);
+                        const customPriceInput = document.querySelector(`.service-custom-price[data-service="${service}"]`);
                         
-                        if (qtyInput && formData[`${service}_qty`]) qtyInput.value = formData[`${service}_qty`];
-                        if (priceInput && formData[`${service}_price`]) priceInput.value = formData[`${service}_price`];
-                        if (unitInput && formData[`${service}_unit`]) unitInput.value = formData[`${service}_unit`];
+                        if (packageSelect && formData[`${service}_package`]) {
+                            packageSelect.value = formData[`${service}_package`];
+                            
+                            // Show custom price input if custom package is selected
+                            const [packageType] = formData[`${service}_package`].split('|');
+                            if (packageType === 'custom' && customPriceInput) {
+                                customPriceInput.style.display = 'block';
+                                if (formData[`${service}_custom_price`]) {
+                                    customPriceInput.value = formData[`${service}_custom_price`];
+                                }
+                            }
+                        }
                     });
                 }
             } catch (e) {
