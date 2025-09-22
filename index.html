@@ -226,6 +226,19 @@
             font-weight: 500;
         }
 
+        .service-payment-type {
+            width: 100%;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border: 2px solid #667eea;
+            margin-bottom: 12px;
+        }
+
+        .service-payment-type:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.1);
+        }
+
         .service-custom-price {
             margin-top: 8px;
         }
@@ -457,6 +470,8 @@
                         <option value="₹">INR (₹)</option>
                         <option value="¥">JPY (¥)</option>
                         <option value="₨">PKR (₨)</option>
+                        <option value="د.إ">AED (د.إ)</option>
+                        <option value="ر.س">SAR (ر.س)</option>
                     </select>
                 </div>
 
@@ -488,6 +503,10 @@
                             <span class="service-name">Web Development</span>
                         </div>
                         <div class="service-details">
+                            <select class="service-payment-type" data-service="webdev">
+                                <option value="fixed">Fixed Price</option>
+                                <option value="time-period">Time Period</option>
+                            </select>
                             <select class="service-package" data-service="webdev">
                                 <option value="">Select Package</option>
                                 <option value="basic">Basic Website</option>
@@ -523,6 +542,10 @@
                             <span class="service-name">SEO Services</span>
                         </div>
                         <div class="service-details">
+                            <select class="service-payment-type" data-service="seo">
+                                <option value="fixed">Fixed Price</option>
+                                <option value="time-period">Time Period</option>
+                            </select>
                             <select class="service-package" data-service="seo">
                                 <option value="">Select Package</option>
                                 <option value="starter">SEO Starter</option>
@@ -557,6 +580,10 @@
                             <span class="service-name">Social Media Marketing</span>
                         </div>
                         <div class="service-details">
+                            <select class="service-payment-type" data-service="social">
+                                <option value="fixed">Fixed Price</option>
+                                <option value="time-period">Time Period</option>
+                            </select>
                             <select class="service-package" data-service="social">
                                 <option value="">Select Package</option>
                                 <option value="basic">Basic Management</option>
@@ -592,6 +619,10 @@
                             <span class="service-name">PPC Advertising</span>
                         </div>
                         <div class="service-details">
+                            <select class="service-payment-type" data-service="ppc">
+                                <option value="fixed">Fixed Price</option>
+                                <option value="time-period">Time Period</option>
+                            </select>
                             <select class="service-package" data-service="ppc">
                                 <option value="">Select Package</option>
                                 <option value="starter">PPC Starter</option>
@@ -873,6 +904,7 @@
             const notes = document.getElementById('notes').value;
 
             let selectedServices = [];
+            let totalBeforeDiscount = 0;
             let subtotal = 0;
 
             // Collect selected services using new package system
@@ -880,6 +912,7 @@
             document.querySelectorAll('.service-checkbox:checked').forEach(checkbox => {
                 const service = checkbox.dataset.service;
                 const serviceName = checkbox.parentElement.querySelector('.service-name').textContent;
+                const paymentTypeSelect = document.querySelector(`.service-payment-type[data-service="${service}"]`);
                 const packageSelect = document.querySelector(`.service-package[data-service="${service}"]`);
                 const priceInput = document.querySelector(`.service-price[data-service="${service}"]`);
                 const typeSelect = document.querySelector(`.service-type[data-service="${service}"]`);
@@ -935,21 +968,41 @@
 
                 // Add service if price is entered
                 if (price > 0) {
-                    const discountAmount = (price * discount) / 100;
-                    const discountedPrice = price - discountAmount;
+                    let finalPrice = price;
+                    let basePrice = price;
+                    let duration = 1;
+                    let calculationBreakdown = '';
                     
-                    subtotal += discountedPrice;
+                    // Calculate price based on payment type and duration
+                    const paymentType = paymentTypeSelect ? paymentTypeSelect.value : 'fixed';
+                    if (paymentType === 'time-period' && typeSelect && ['days', 'weeks', 'months'].includes(typeSelect.value)) {
+                        duration = parseInt(durationInput.value) || 1;
+                        finalPrice = price * duration;
+                        const periodType = typeSelect.value === 'days' ? 'day' : 
+                                          typeSelect.value === 'weeks' ? 'week' : 'month';
+                        calculationBreakdown = `For ${duration} ${periodType}${duration > 1 ? 's' : ''}: ${duration} × ${currency}${price.toLocaleString()} = ${currency}${finalPrice.toLocaleString()}`;
+                    }
+                    
+                    const discountAmount = (finalPrice * discount) / 100;
+                    const discountedPrice = finalPrice - discountAmount;
+                    
+                    totalBeforeDiscount += finalPrice;
                     totalDiscount += discountAmount;
+                    subtotal += discountedPrice;
                     
                     selectedServices.push({
                         name: serviceName,
                         package: packageName || 'Custom Package',
-                        originalPrice: price,
+                        basePrice: basePrice,
+                        originalPrice: finalPrice,
                         discountPercent: discount,
                         discountAmount: discountAmount,
                         price: discountedPrice,
                         type: serviceType || 'One Time',
-                        description: description || `Professional ${serviceName.toLowerCase()} service`
+                        description: description || `Professional ${serviceName.toLowerCase()} service`,
+                        paymentType: paymentType,
+                        duration: duration,
+                        calculationBreakdown: calculationBreakdown
                     });
                 }
             });
@@ -1008,23 +1061,41 @@
                                 </td>
                                 <td>1</td>
                                 <td>${service.type}</td>
+                                <td><span class="currency-symbol">${currency}</span>${service.basePrice.toLocaleString()}</td>
                                 <td><span class="currency-symbol">${currency}</span>${service.originalPrice.toLocaleString()}</td>
-                                <td><span class="currency-symbol">${currency}</span>${service.price.toLocaleString()}</td>
                             </tr>
                             `).join('')}
                     </tbody>
                 </table>
                 
+                ${selectedServices.some(service => service.calculationBreakdown) ? `
+                <div style="margin: 20px 0; padding: 15px; background: #f0f9ff; border-radius: 10px; border-left: 4px solid #0ea5e9;">
+                    <h4 style="margin-bottom: 10px; color: #0c4a6e; font-size: 1.1em;">Calculation Breakdown:</h4>
+                    ${selectedServices.filter(service => service.calculationBreakdown)
+                        .map(service => `<p style="color: #0369a1; margin: 5px 0; font-weight: 500;">
+                            ${service.name}: ${service.calculationBreakdown}
+                        </p>`).join('')}
+                </div>
+                ` : ''}
+                
                 <div class="total-section">
-                    <div class="total-row">
-                        <span>Subtotal:</span>
-                        <span><span class="currency-symbol">${currency}</span>${subtotal.toLocaleString()}</span>
-                    </div>
                     ${totalDiscount > 0 ? `
+                    <div class="total-row">
+                        <span>Total:</span>
+                        <span><span class="currency-symbol">${currency}</span>${totalBeforeDiscount.toLocaleString()}</span>
+                    </div>
                     <div class="total-row">
                         <span>Total Discount Applied:</span>
                         <span style="color: #059669; font-weight: 600;">-<span class="currency-symbol">${currency}</span>${totalDiscount.toLocaleString()}</span>
-                    </div>` : ''}
+                    </div>
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span><span class="currency-symbol">${currency}</span>${subtotal.toLocaleString()}</span>
+                    </div>` : `
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span><span class="currency-symbol">${currency}</span>${subtotal.toLocaleString()}</span>
+                    </div>`}
                     ${taxRate > 0 ? `
                     <div class="total-row">
                         <span>Tax (${taxRate}%):</span>
@@ -1065,6 +1136,7 @@
             document.querySelectorAll('.service-checkbox:checked').forEach(checkbox => {
                 const service = checkbox.dataset.service;
                 const serviceName = checkbox.parentElement.querySelector('.service-name').textContent;
+                const paymentTypeSelect = document.querySelector(`.service-payment-type[data-service="${service}"]`);
                 const packageSelect = document.querySelector(`.service-package[data-service="${service}"]`);
                 const priceInput = document.querySelector(`.service-price[data-service="${service}"]`);
                 const typeSelect = document.querySelector(`.service-type[data-service="${service}"]`);
@@ -1107,11 +1179,25 @@
 
                 // Add service if all required fields are filled
                 if (packageName && price > 0 && serviceType) {
+                    let finalPrice = price;
+                    let basePrice = price;
+                    let duration = 1;
+                    
+                    // Calculate price based on payment type and duration
+                    const paymentType = paymentTypeSelect ? paymentTypeSelect.value : 'fixed';
+                    if (paymentType === 'time-period' && ['days', 'weeks', 'months'].includes(typeSelect.value)) {
+                        duration = parseInt(durationInput.value) || 1;
+                        finalPrice = price * duration;
+                    }
+                    
                     selectedServices.push({
                         name: serviceName,
                         package: packageName,
-                        price: price,
-                        type: serviceType
+                        basePrice: basePrice,
+                        price: finalPrice,
+                        type: serviceType,
+                        paymentType: paymentType,
+                        duration: duration
                     });
                 }
             });
@@ -1441,6 +1527,12 @@
             inputs.forEach(input => {
                 input.addEventListener('input', updatePreview);
                 input.addEventListener('change', updatePreview);
+            });
+
+            // Add event listeners for payment type changes
+            const paymentTypeSelects = document.querySelectorAll('.service-payment-type');
+            paymentTypeSelects.forEach(select => {
+                select.addEventListener('change', updatePreview);
             });
 
             // Add event listeners for service type changes
